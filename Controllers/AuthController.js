@@ -15,7 +15,7 @@ exports.register = async(req,res,next)=>{
 
         return res.status(201).json({
             message: `utilisateur créer avec succès :`,
-            user:{ id : user._id , username : user.username , email : user.email }
+            user:{ id : user._id , username : user.username , email : user.email, role }
         });
 
     }catch(err){
