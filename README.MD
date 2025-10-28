@@ -9,13 +9,13 @@ Projet d'apprentissage backend — routes CRUD complètes, recherche, pagination
 
 Clone le projet :
 ```bash
-git clone https://github.com/Zeiyar/todoListBackend.git
-cd todoListBackend
+git clone https://github.com/Zeiyar/ToDoList-But-with-backend.git
+cd ToDoList-But-with-backend
 npm install
 
 ▶️ Lancer le serveur
 En mode développement :
-npm start
+node server.js start
 
 Remplir la base avec des données :
 node seed.js fill
@@ -25,7 +25,7 @@ node seed.js clear
 
 
 Le serveur démarre sur :
-👉 http://localhost:3000
+👉 https://todolist-but-with-backend.onrender.com
 
 📚 Endpoints
 Méthode	Route	Description

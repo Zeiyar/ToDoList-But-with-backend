@@ -74,3 +74,10 @@ exports.searchTodo = async(req,res,next) => {
         next(err);
     }
 };
+
+exports.getUserInfo = (req,res)=>{
+    res.json({
+        message : "profil utilisateur :",
+        user : req.user
+});
+};
