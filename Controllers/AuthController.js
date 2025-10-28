@@ -7,7 +7,7 @@ exports.register = async(req,res,next)=>{
         const {email,password,username} = req.body;
         if (!email||!password||!username) return res.status(400).json({message: "terme manquant"});
 
-        const existing = User.findOne({email});
+        const existing = await User.findOne({email});
         if (existing) return res.status(400).json({message : "utilisateur déjà créer veuillez vous connectez"});
         
         const newPassword = await bcrypt.hash(password,10);
@@ -17,7 +17,7 @@ exports.register = async(req,res,next)=>{
             message: `utilisateur créer avec succès :`,
             user:{ id : user._id , username : user.username , email : user.email }
         });
-        
+
     }catch(err){
         next(err);
     }
