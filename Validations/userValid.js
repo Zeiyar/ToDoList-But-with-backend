@@ -9,7 +9,8 @@ const userSchema = Joi.object({
     .message(
         "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial"
     )
-    .required()
+    .required(),
+    role: Joi.string().valid("user","admin").default("user")
 });
 
 module.exports = (req,res,next) => {
