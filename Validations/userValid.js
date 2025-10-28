@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-exports.usernameValid = Joi.object({
+const userSchema = Joi.object({
     username: Joi.string().min(3).max(30).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(8).max(50).pattern(
@@ -11,3 +11,12 @@ exports.usernameValid = Joi.object({
     )
     .required()
 });
+
+module.exports = (req,res,next) => {
+    const {error,value} = userSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+    }
+    req.body = value;
+    next();
+}
