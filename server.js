@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require("express");
 const app = express();
 const ErrorHandler = require("./Middleware/gererLesErreurs");
@@ -29,12 +28,12 @@ else{
 app.use("/todos",TodoRoad);
 app.use("/auth",AuthRoad);
 
-app.use("")
 app.use(ErrorHandler);
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+    .connect(process.env.MONGO_URI)
     .then(()=>console.log(`connected on mongoDb`))
     .catch((err)=>console.error("error :",err));
 
-app.listen(process.env.PORT,()=>console.log(`server connected on https://todolist-but-with-backend.onrender.com`)); 
+app.listen(process.env.PORT,()=>console.log(`server connected on ${process.env.PORT}`)); 
 
