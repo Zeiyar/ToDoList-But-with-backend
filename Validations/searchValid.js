@@ -5,7 +5,7 @@ const researchValidation = joi.object({
     page : joi.number().min(1).default(1),   
     limit : joi.number().min(1).max(50).default(5),
     sort: joi.string().valid("createdAt", "note", "category").default("createdAt"),
-});
+}).unknown(false);
 
 module.exports = (req, res, next) => {
   const { error, value } = researchValidation.validate(req.query);

@@ -11,7 +11,7 @@ const userSchema = Joi.object({
     )
     .required(),
     role: Joi.string().valid("user","admin").default("user")
-});
+}).unknown(false);
 
 module.exports = (req,res,next) => {
     const {error,value} = userSchema.validate(req.body);

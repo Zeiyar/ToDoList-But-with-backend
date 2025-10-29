@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 
 const TodoRoad = require("./Routes/TodoCRUD");
 const AuthRoad = require("./Routes/Auth");
@@ -14,8 +15,29 @@ if(!process.env.MONGO_URI){
     process.exit(1);
 };
 
+const limiter = rateLimit({
+    windowMs: 15*60*1000,
+    max: 100,
+    message: "trop de rêquete, réesayer plus tard",
+});
+app.use(limiter);
+
+const authLimiter = rateLimit({
+    windowMs: 60*15*1000,
+    max: 10,
+    message:"trop de tentative de connexion réesayer plus tard"
+})
+app.use("/auth/login",authLimiter)
+
+app.disable("x-powered-by");
+
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+    origin:[`http://localhost:3000`,"https://monsiteplustard.com"], //origin autorisé
+    methods: ["POST","PUT","DELETE","GET"], //method autorisé
+    allowedHeaders: ["Authorization","Content-Type"], //type de header autorisé
+    credentials: true, //cookies autorisé
+}));
 app.use(express.json());
 
 if(process.env.NODE_ENV==="development"){
